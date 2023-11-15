@@ -14,3 +14,16 @@
 
 ### 🛠 Setup & Installation
 #### Clone the Repository: [HealthDietAdviser Application-Backend]([https://github.com/5zam/HealthDietAdviser-JavaApp.git](https://github.com/5zam/HealthDietAdviser-FullStack-BackEnd.git)https://github.com/5zam/HealthDietAdviser-FullStack-BackEnd.git)
+
+### ✏ Summary:
+➜ Admin: Admins can log in with a username and password. Admins have the role of "admin" and can add chronic diseases and associated meals.
+
+➜ User: Users can log in with a username and password. Users can also sign up if they are new to the system. Users can add multiple diet prescriptions, and each diet prescription can contain up to three meals. Users can view and manage their diet prescriptions.
+
+➜ Chronic Disease: Represents different chronic diseases that meals can be associated with.
+
+➜ Meal: Represents meals that can be associated with chronic diseases.
+
+➜ Diet Prescription: Users can create and manage diet prescriptions, each with a name, associated user, and a list of selected meals.
+
+➜ UserRole: Defines the roles of users, distinguishing between "admin" and "user."
