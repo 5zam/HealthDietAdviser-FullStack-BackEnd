@@ -7,7 +7,8 @@
 
 ### 📊 Class Diagram
 #### For a deeper dive into our application's structure:
-![Health Diet Adviser class diagram](https://github.com/5zam/HealthDietAdviser-JavaApp/assets/146082269/d044232d-0c0f-4c2f-a02d-d351f22d4ab9)
+![Health Diet Adviser class diagram]()![ClassDiagram](https://github.com/5zam/HealthDietAdviser-FullStack-BackEnd/assets/146082269/9ce85151-5d9d-4ec0-8fb2-4622e832e99e)
+
 
 ### 🛠 Setup & Installation
-#### Clone the Repository: [HealthDietAdviser Application](https://github.com/5zam/HealthDietAdviser-JavaApp.git)
+#### Clone the Repository: [HealthDietAdviser Application]([https://github.com/5zam/HealthDietAdviser-JavaApp.git](https://github.com/5zam/HealthDietAdviser-FullStack-BackEnd.git)https://github.com/5zam/HealthDietAdviser-FullStack-BackEnd.git)
