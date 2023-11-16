@@ -2,10 +2,9 @@ package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 
 /*
@@ -15,6 +14,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity
 @Table(name = "tbl_Diet_Prescription")
 public class DietPrescription {
@@ -23,18 +23,21 @@ public class DietPrescription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String mealAmount;
     /*
      * User can see the diet prescription information
      *  including meals depend on chronic_disease information and meal amount.
      */
 
     @ManyToOne
-    @JoinColumn(name = "meal_id")
-    private Meals meal;
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "chronic_disease_id")
-    private ChronicDisease chronicDisease;
-
-    private String mealAmount;
+    @ManyToMany
+    @JoinTable(
+            name = "diet_prescription_meal",
+            joinColumns = @JoinColumn(name = "diet_prescription_id"),
+            inverseJoinColumns = @JoinColumn(name = "meal_id")
+    )
+    private List<Meals> meals;
 }

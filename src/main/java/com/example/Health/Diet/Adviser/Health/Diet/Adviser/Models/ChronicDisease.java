@@ -2,10 +2,7 @@ package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,6 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity
 @Table(name = "tbl_chronic_diseases")
 public class ChronicDisease {
@@ -25,9 +23,12 @@ public class ChronicDisease {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long diseaseId;
 
-    @Column(name = "diseaseName")
+    @Column(nullable = false)
     private String diseaseName;
 
+    /*
+     * Each chronic disease associated with the list of meals
+     */
     @OneToMany(mappedBy = "chronicDisease")
-    private List<DietPrescription> dietPrescriptions;
+    private List<Meals> meals;
 }
