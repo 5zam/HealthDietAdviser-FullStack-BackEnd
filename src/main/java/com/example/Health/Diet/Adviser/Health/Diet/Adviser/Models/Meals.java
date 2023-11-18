@@ -38,11 +38,11 @@ public class Meals {
     private String mealImagePath;
 
 
-    @Column(nullable = false)
-    private int calories;
+    @Column(name = "calories")
+    private Integer calories = 0;
 
-    @Column(nullable = false)
-    private int protein;
+    @Column(name = "protein")
+    private Integer protein = 0;
 
     // Admin can add list of meals for each chronic disease.
     @ManyToOne(fetch = FetchType.LAZY)
@@ -57,6 +57,13 @@ public class Meals {
         return Collections.emptyList(); // Return an empty list as a placeholder.
     }
 
+//    public String getMealImagePath() {
+//        return mealImagePath;
+//    }
+//
+//    public void setMealImagePath(String imagePath) {
+//        this.mealImagePath = imagePath;
+//    }
 
 
 

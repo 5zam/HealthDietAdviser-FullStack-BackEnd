@@ -32,10 +32,35 @@ public class MealService implements MealInterface {
         this.chronicDiseaseRepository = chronicDiseaseRepository;
     }
 
+//    public void addMealToChronicDisease(Meals meal, Long chronicDiseaseId) {
+//        ChronicDisease chronicDisease = chronicDiseaseRepository.findById(chronicDiseaseId)
+//                .orElseThrow(() -> new EntityNotFoundException("Chronic disease not found with ID: " + chronicDiseaseId));
+//        meal.setChronicDisease(chronicDisease);
+//        mealRepository.save(meal);
+//    }
+
+    @Override
     public void addMealToChronicDisease(Meals meal, Long chronicDiseaseId) {
         ChronicDisease chronicDisease = chronicDiseaseRepository.findById(chronicDiseaseId)
-                .orElseThrow(() -> new EntityNotFoundException("Chronic disease not found with ID: " + chronicDiseaseId));
+                .orElseThrow(() -> new EntityNotFoundException("Chronic Disease not found with ID: " + chronicDiseaseId));
+
+        // Check if the mealImagePath is null and set a default value if needed
+        if (meal.getMealImagePath() == null) {
+            meal.setMealImagePath("default_image_path");
+        }
+
+        // Set default values for calories and protein only if they are null
+        if (meal.getCalories() == null) {
+            meal.setCalories(0);
+        }
+
+        if (meal.getProtein() == null) {
+            meal.setProtein(0);
+        }
+
+        // Set the chronic disease for the meal
         meal.setChronicDisease(chronicDisease);
+
         mealRepository.save(meal);
     }
 
