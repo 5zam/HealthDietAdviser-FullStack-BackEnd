@@ -1,7 +1,6 @@
 package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesImplementation;
 
 
-import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Exceptions.GoalAlreadySetException;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.DietPrescription;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.User;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Repositories.UserRepository;
