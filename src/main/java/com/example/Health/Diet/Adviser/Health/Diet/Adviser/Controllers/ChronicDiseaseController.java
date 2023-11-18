@@ -27,6 +27,9 @@ public class ChronicDiseaseController {
     }
     private final Logger logger = LoggerFactory.getLogger(ChronicDiseaseController.class);
 
+    /*
+     * Add all chronic disease
+     */
     @PostMapping("/add")
     public ResponseEntity<String> addChronicDisease(@RequestBody @Valid ChronicDisease chronicDisease) {
         chronicDiseaseService.addChronicDisease(chronicDisease);

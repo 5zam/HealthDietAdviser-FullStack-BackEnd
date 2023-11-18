@@ -1,8 +1,12 @@
 package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 
 /*
@@ -28,13 +32,16 @@ public class Meals {
     @Column(nullable = false)
     private String type;
 
-    @Column(name="mealImagePath")
-    private String imagePath;
+    @Column(name = "meal_image_path")
+    @JsonProperty("meal_image_path")
+    private String mealImagePath;
 
-
-    //Admin can add list of meals for each chronic disease.
-    @ManyToOne
+    // Admin can add list of meals for each chronic disease.
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chronic_disease_id")
+    @JsonIgnore // Use @JsonIgnore to prevent cyclic references
     private ChronicDisease chronicDisease;
+
+
 
 }
