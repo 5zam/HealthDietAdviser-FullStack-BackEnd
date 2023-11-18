@@ -21,4 +21,11 @@ public interface UserInterface {
 //    void setGoals(User user, DietPrescription dietPrescription);
 
     List<User> getAllUsers();
+
+
+
+
+    User getUserById(Long userId);
+
+    void updateUser(User existingUser);
 }

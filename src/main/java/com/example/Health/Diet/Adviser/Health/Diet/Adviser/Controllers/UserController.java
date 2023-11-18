@@ -1,5 +1,6 @@
 package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Controllers;
 
+import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.ChronicDisease;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.User;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesImplementation.UserService;
 import jakarta.validation.Valid;
@@ -8,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -68,5 +71,48 @@ public class UserController {
 //        // Return ResponseEntity with the list of users and HttpStatus.OK.
 //        return null;
 //    }
+
+
+    @PatchMapping("/{userId}/update-chronic-diseases")
+    public ResponseEntity<String> updateChronicDiseases(
+            @PathVariable Long userId,
+            @RequestBody List<ChronicDisease> updatedChronicDiseases) {
+
+        User existingUser = userService.getUserById(userId);
+        if (existingUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Convert the List to a Set
+        Set<ChronicDisease> updatedChronicDiseasesSet = new HashSet<>(updatedChronicDiseases);
+
+        // Update the chronic diseases for the user
+        existingUser.setChronicDiseases(updatedChronicDiseasesSet);
+
+        userService.updateUser(existingUser);
+
+        return ResponseEntity.ok("Chronic diseases updated successfully!");
+    }
+
+    @PostMapping("/{userId}/add-chronic-diseases")
+    public ResponseEntity<String> addChronicDiseases(
+            @PathVariable Long userId,
+            @RequestBody List<ChronicDisease> newChronicDiseases) {
+
+        User existingUser = userService.getUserById(userId);
+        if (existingUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Add new chronic diseases to the user's existing list
+        existingUser.getChronicDiseases().addAll(newChronicDiseases);
+
+        userService.updateUser(existingUser);
+
+        return ResponseEntity.ok("Chronic diseases added successfully!");
+    }
+
+
+
 
 }

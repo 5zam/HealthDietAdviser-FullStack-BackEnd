@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -56,4 +57,20 @@ public class UserService implements UserInterface {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    @Override
+    public User getUserById(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        return userOptional.orElse(null);
+    }
+
+
+    @Override
+    public void updateUser(User existingUser) {
+        // Assuming userRepository is an instance of your UserRepository
+        userRepository.save(existingUser);
+    }
+
+
+
 }
