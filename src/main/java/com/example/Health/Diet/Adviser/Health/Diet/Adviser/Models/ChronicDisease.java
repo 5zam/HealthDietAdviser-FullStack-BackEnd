@@ -32,4 +32,10 @@ public class ChronicDisease {
      */
     @OneToMany(mappedBy = "chronicDisease")
     private List<Meals> meals;
+
+
+    public String getName() {
+        return diseaseName;
+    }
+
 }

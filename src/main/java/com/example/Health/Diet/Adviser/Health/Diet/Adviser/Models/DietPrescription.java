@@ -4,7 +4,10 @@ package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /*
@@ -23,21 +26,26 @@ public class DietPrescription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String mealAmount;
-    /*
-     * User can see the diet prescription information
-     *  including meals depend on chronic_disease information and meal amount.
-     */
+
+    @ManyToMany
+    @JoinTable(name = "diet_prescription_meals",
+            joinColumns = @JoinColumn(name = "diet_prescription_id"),
+            inverseJoinColumns = @JoinColumn(name = "meal_id"))
+    private Set<Meals> meals = new HashSet<>();
+
+    private String goals;
+
+    private LocalDate startDate;
+
+    private LocalDate endDate;
+
+    private boolean active;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @ManyToMany
-    @JoinTable(
-            name = "diet_prescription_meal",
-            joinColumns = @JoinColumn(name = "diet_prescription_id"),
-            inverseJoinColumns = @JoinColumn(name = "meal_id")
-    )
-    private List<Meals> meals;
 }
+
+
+
+
