@@ -30,7 +30,7 @@ public class MealController {
     private MealRepository mealRepository;
 
 
-    @PostMapping("/add-to-chronic-disease/{chronicDiseaseId}")
+        @PostMapping("/add-to-chronic-disease/{chronicDiseaseId}")
     public ResponseEntity<String> addMealToChronicDisease(
             @RequestBody @Valid Meals meal,
             @PathVariable Long chronicDiseaseId) {
@@ -42,6 +42,8 @@ public class MealController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
         }
     }
+
+
 
     @GetMapping("/all")
     public ResponseEntity<List<MealsDTO>> getAllMeals() {

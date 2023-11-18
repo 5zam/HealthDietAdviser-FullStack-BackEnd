@@ -36,6 +36,9 @@ public class Meals {
     @JsonProperty("meal_image_path")
     private String mealImagePath;
 
+    @Column(name = "meal_amount",nullable = false)
+    private String mealAmount;
+
     // Admin can add list of meals for each chronic disease.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chronic_disease_id")

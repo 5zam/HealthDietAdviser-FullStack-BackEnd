@@ -13,6 +13,7 @@ public class MealsDTO {
     private String name;
     private String type;
     private String mealImagePath;
+    private String mealAmount;
 
 // I close chronic diseases
   //  private ChronicDiseaseDTO chronicDisease;
