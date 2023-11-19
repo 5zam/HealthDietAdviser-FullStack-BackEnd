@@ -13,4 +13,9 @@ public interface DietPrescriptionInterface {
     DietPrescriptionDTO addDietPrescriptionForUserAndDisease(Long userId, Long diseaseId, DietPrescriptionDTO dietPrescriptionDTO);
 
 
+    DietPrescriptionDTO updateDietPrescriptionById(Long dietPrescriptionId, DietPrescriptionDTO updatedDTO);
+
+    List<DietPrescriptionDTO> getAllInactiveDietPrescriptions();
+
+    void deleteDietPrescriptionById(Long dietPrescriptionId);
 }

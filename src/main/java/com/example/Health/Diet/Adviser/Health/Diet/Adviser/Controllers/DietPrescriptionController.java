@@ -3,6 +3,7 @@ package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Controllers;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.DTO.DietPrescriptionDTO;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.DietPrescription;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesImplementation.DietPrescriptionService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,13 +41,38 @@ public class DietPrescriptionController {
 
 
     //update diet-prescriptions
+    @PutMapping("/update/{id}")
+    public ResponseEntity<DietPrescriptionDTO> updateDietPrescriptionById(
+            @PathVariable Long id,
+            @RequestBody DietPrescriptionDTO updatedDTO
+    ) {
+        DietPrescriptionDTO updatedDietPrescription = dietPrescriptionService.updateDietPrescriptionById(id, updatedDTO);
+        return ResponseEntity.ok(updatedDietPrescription);
+    }
 
         //delete
+//        @DeleteMapping("/delete/{id}")
+//        public ResponseEntity<String> deleteDietPrescriptionById(@PathVariable Long id) {
+//            dietPrescriptionService.deleteDietPrescriptionById(id);
+//            return ResponseEntity.ok("Diet Prescription deleted successfully");
+//        }
 
-        //get all diet-prescriptions
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteDietPrescriptionById(@PathVariable Long id) {
+        try {
+            dietPrescriptionService.deleteDietPrescriptionById(id);
+            return ResponseEntity.ok("Diet Prescription with ID " + id + " deleted successfully");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 
 
         //get all diet-prescriptions by active false
+        @GetMapping("/inactive")
+        public List<DietPrescriptionDTO> getAllInactiveDietPrescriptions() {
+            return dietPrescriptionService.getAllInactiveDietPrescriptions();
+        }
     }
 
 

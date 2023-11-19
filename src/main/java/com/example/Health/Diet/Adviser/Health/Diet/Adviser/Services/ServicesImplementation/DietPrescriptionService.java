@@ -99,6 +99,66 @@ public class DietPrescriptionService implements DietPrescriptionInterface {
         return mapToDTO(dietPrescription);
     }
 
+    @Override
+    public DietPrescriptionDTO updateDietPrescriptionById(Long dietPrescriptionId, DietPrescriptionDTO updatedDTO) {
+        // Find the DietPrescription by its ID
+        DietPrescription dietPrescription = dietPrescriptionRepository.findById(dietPrescriptionId)
+                .orElseThrow(() -> new EntityNotFoundException("Diet Prescription not found"));
+
+        // Update the DietPrescription with the new information
+        dietPrescription.setStartDate(updatedDTO.getStartDate());
+        dietPrescription.setEndDate(updatedDTO.getEndDate());
+        dietPrescription.setActive(updatedDTO.isActive());
+
+        // Convert List<Long> mealIds to Set<Long> and update associated meals
+        Set<Long> mealIds = new HashSet<>(updatedDTO.getMealIds());
+
+        if (!mealIds.isEmpty()) {
+            // Fetch the meals by their IDs
+            Set<Meals> selectedMeals = new HashSet<>(mealRepository.findAllById(mealIds));
+
+            // Associate the selected meals with the diet prescription
+            dietPrescription.setMeals(selectedMeals);
+        } else {
+            // If no meals are selected, clear the associated meals
+            dietPrescription.getMeals().clear();
+        }
+
+        // Save the updated diet prescription to the database
+        dietPrescription = dietPrescriptionRepository.save(dietPrescription);
+
+        // Convert and return the updated diet prescription as DTO
+        return mapToDTO(dietPrescription);
+    }
+
+    @Override
+    public List<DietPrescriptionDTO> getAllInactiveDietPrescriptions() {
+        return dietPrescriptionRepository.findByActive(false)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public void deleteDietPrescriptionById(Long dietPrescriptionId) {
+        // Check if the DietPrescription exists
+        if (!dietPrescriptionRepository.existsById(dietPrescriptionId)) {
+            throw new EntityNotFoundException("Diet Prescription with ID " + dietPrescriptionId + " not found");
+        }
+
+        // Delete the DietPrescription by its ID
+        dietPrescriptionRepository.deleteById(dietPrescriptionId);
+    }
+
+//    @Override
+//    public void deleteDietPrescriptionById(Long dietPrescriptionId) {
+//        // Check if the DietPrescription exists
+//        if (!dietPrescriptionRepository.existsById(dietPrescriptionId)) {
+//            throw new EntityNotFoundException("Diet Prescription not found");
+//        }
+//
+//        // Delete the DietPrescription by its ID
+//        dietPrescriptionRepository.deleteById(dietPrescriptionId);
+//    }
 
 
 }
