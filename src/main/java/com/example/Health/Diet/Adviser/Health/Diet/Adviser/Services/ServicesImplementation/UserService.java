@@ -3,20 +3,35 @@ package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesImp
 
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.DietPrescription;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.User;
+import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Repositories.RoleRepository;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Repositories.UserRepository;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesInterfaces.UserInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 
 @Service
-public class UserService implements UserInterface {
+@Slf4j
+public class UserService implements UserInterface , UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     public void registerUser(User user) throws Exception {
@@ -30,30 +45,6 @@ public class UserService implements UserInterface {
     }
 
     @Override
-    public void updateHealthInformation(User user) {
-        // Implement the logic to update user's health information
-        userRepository.save(user); // Save the updated user information
-    }
-
-//    public boolean hasGoalForDietPrescription(User user, DietPrescription dietPrescription) {
-//        // Implement the logic to check if the user has a goal set for the given diet prescription.
-//        // You can iterate through the user's diet prescriptions and check if any of them have the same dietPrescription ID
-//        // and already have a goal set.
-//        return user.getDietPrescriptions().stream()
-//                .anyMatch(dp -> dp.getId().equals(dietPrescription.getId()) && dp.getGoals() != null && !dp.getGoals().isEmpty());
-//    }
-
-
-//    @Override
-//    public void setGoals(User user, DietPrescription dietPrescription) {
-//        // Check if the user already has a goal set for the diet prescription
-//        if (hasGoalForDietPrescription(user, dietPrescription)) {
-//            throw new GoalAlreadySetException("A goal is already set for this diet prescription.");
-//        }
-//        userRepository.save(user); // Save the updated goals
-//    }
-
-    @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -64,12 +55,43 @@ public class UserService implements UserInterface {
         return userOptional.orElse(null);
     }
 
-
     @Override
     public void updateUser(User existingUser) {
         // Assuming userRepository is an instance of your UserRepository
         userRepository.save(existingUser);
     }
+
+
+
+    //security
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            log.error("User not found in the database");
+            throw new UsernameNotFoundException("User not found in the database");
+        } else {
+            log.info("User is found in the database: {}", email);
+            Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            user.getRoles().forEach(role -> {
+                authorities.add(new SimpleGrantedAuthority(role.getName()));
+            });
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+        }
+    }
+
+    public User saveUser(User userSignupDTO) {
+        log.info("Saving a new user {} inside of the database", userSignupDTO.getName());
+        User user = new User(userSignupDTO.getName(), userSignupDTO.getEmail(), userSignupDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    public List<User> getUsers() {
+        log.info("Fetching all users");
+        return userRepository.findAll();
+    }
+
 
 
 

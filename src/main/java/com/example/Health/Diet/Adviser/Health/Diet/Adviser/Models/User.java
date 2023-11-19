@@ -1,13 +1,13 @@
 package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models;
 
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
+
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import java.util.*;
 
 @Setter
 @Getter
@@ -17,6 +17,34 @@ import java.util.Set;
 @Entity
 @Table(name = "tbl_users")
 public class User {
+    //user security
+    @NotEmpty(message = "Provide a name.")
+    private String name;
+    @Pattern(regexp = "[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            + "[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            + "(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\\.)+[A-Za-z0-9]"
+            + "(?:[A-Za-z0-9-]*[A-Za-z0-9])?",
+            message = "Provide a valid email address.")
+    private String email;
+    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}",
+            message = "Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.")
+    private String password;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Role> roles = new ArrayList<>();
+
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+
+
+
+
+
+
+    //user part
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,59 +65,9 @@ public class User {
     )
     private Set<ChronicDisease> chronicDiseases;
 
-
-//    @ElementCollection
-//    @CollectionTable(name = "user_goals", joinColumns = @JoinColumn(name = "user_id"))
-//    @Column(name = "goal")
-//    private Set<String> goals;
-
     @OneToMany(mappedBy = "user")
     private List<DietPrescription> dietPrescriptions;
 
 
 
-//    // Attribute to store maximum calories per meal based on Chronic Diseases
-//    private int maxCaloriesPerMeal;
-//
-//    // Attribute to store minimum protein per meal based on Chronic Diseases
-//    private int minProteinPerMeal;
-//
-//
-//    // Add the getMaxCaloriesPerMeal() method
-//    public int getMaxCaloriesPerMeal() {
-//        // Implement the logic to return the maximum calories per meal for the user.
-//        // You can fetch this information from the user's attributes or database.
-//        // Replace the following line with your actual logic.
-//
-//        if (maxCaloriesPerMeal != null) {
-//            return maxCaloriesPerMeal;
-//        } else {
-//            // If the 'maxCaloriesPerMeal' attribute is not set, you can return a default value.
-//            return DEFAULT_MAX_CALORIES_PER_MEAL;
-//        }
-//        return 0;
-//    }
-//
-//    public int getMinProteinPerMeal() {
-//        // Implement the logic to return the minimum protein per meal for the user.
-//        // You can fetch this information from the user's attributes or database.
-//        // Replace the following line with your actual logic.
-//        return 0;
-//    }
-
-
-//    @Email
-//    @Column(nullable = false, unique = true)
-//    private String email; // email should be unique , present as username
-//
-//    @Column(nullable = false)
-//    private String password; // Hash and securely store the password
-//
-//    private String name; // to display it in Front End
-//
-//    @Column(name="profileImagePath")
-//    private String imagePath;
-//
-//    @OneToMany(mappedBy = "user")
-//    private List<DietPrescription> dietPrescriptions;
 }

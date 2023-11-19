@@ -1,9 +1,10 @@
 package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models;
 
 
-import jakarta.persistence.*;
+
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Setter

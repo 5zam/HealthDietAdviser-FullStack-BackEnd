@@ -6,7 +6,6 @@ import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.Meals;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Repositories.ChronicDiseaseRepository;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Repositories.MealRepository;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesInterfaces.MealInterface;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,6 +17,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+
+import javax.persistence.EntityNotFoundException;
 
 
 @Service

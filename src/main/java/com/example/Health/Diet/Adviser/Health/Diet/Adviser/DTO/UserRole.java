@@ -1,10 +1,10 @@
 package com.example.Health.Diet.Adviser.Health.Diet.Adviser.DTO;
 
 
-import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.Role;
-import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.User;
-import jakarta.persistence.*;
+
 import lombok.*;
+
+import javax.persistence.*;
 
 @Setter
 @Getter
@@ -18,12 +18,14 @@ public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "role_id")
+//    private Role role;
 }

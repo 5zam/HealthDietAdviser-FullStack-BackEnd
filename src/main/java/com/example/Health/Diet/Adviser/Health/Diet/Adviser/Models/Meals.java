@@ -3,12 +3,11 @@ package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
-
 
 /*
  * Admin only has permission to access this page
@@ -54,9 +53,7 @@ public class Meals {
         return Collections.emptyList(); // Replace with your actual logic.
     }
 
-//    public Meals(Long mealId) {
-//        this.mealId = mealId;
-//    }
+
     public Long getId() {
         return mealId;
     }

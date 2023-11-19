@@ -1,10 +1,11 @@
 package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+
+
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;

@@ -10,10 +10,10 @@ import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Repositories.DietPres
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Repositories.MealRepository;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Repositories.UserRepository;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesInterfaces.DietPrescriptionInterface;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -149,16 +149,7 @@ public class DietPrescriptionService implements DietPrescriptionInterface {
         dietPrescriptionRepository.deleteById(dietPrescriptionId);
     }
 
-//    @Override
-//    public void deleteDietPrescriptionById(Long dietPrescriptionId) {
-//        // Check if the DietPrescription exists
-//        if (!dietPrescriptionRepository.existsById(dietPrescriptionId)) {
-//            throw new EntityNotFoundException("Diet Prescription not found");
-//        }
-//
-//        // Delete the DietPrescription by its ID
-//        dietPrescriptionRepository.deleteById(dietPrescriptionId);
-//    }
+
 
 
 }

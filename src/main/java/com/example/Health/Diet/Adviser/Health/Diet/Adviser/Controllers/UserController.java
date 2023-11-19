@@ -3,12 +3,12 @@ package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Controllers;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.ChronicDisease;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.User;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesImplementation.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,11 +31,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
     }
 
-    @PutMapping("/update-health")
-    public ResponseEntity<String> updateHealthInformation(@RequestBody @Valid User user) {
-        userService.updateHealthInformation(user);
-        return ResponseEntity.ok("Health information updated successfully!");
-    }
+//    @PutMapping("/update-health")
+//    public ResponseEntity<String> updateHealthInformation(@RequestBody @Valid User user) {
+//        userService.updateHealthInformation(user);
+//        return ResponseEntity.ok("Health information updated successfully!");
+//    }
 
 //    @PutMapping("/set-goals")
 //    public ResponseEntity<String> setGoals(@RequestBody @Valid User user) {

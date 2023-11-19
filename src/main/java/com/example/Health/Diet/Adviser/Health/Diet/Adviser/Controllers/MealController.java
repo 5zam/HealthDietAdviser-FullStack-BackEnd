@@ -5,14 +5,13 @@ import com.example.Health.Diet.Adviser.Health.Diet.Adviser.DTO.MealsDTO;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.Meals;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Repositories.MealRepository;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesImplementation.MealService;
-import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesInterfaces.MealInterface;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -157,11 +156,6 @@ public class MealController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
         }
     }
-
-
-
-
-
 
 
 }

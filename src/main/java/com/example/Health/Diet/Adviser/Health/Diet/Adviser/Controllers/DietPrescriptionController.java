@@ -3,12 +3,12 @@ package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Controllers;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.DTO.DietPrescriptionDTO;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.DietPrescription;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesImplementation.DietPrescriptionService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
