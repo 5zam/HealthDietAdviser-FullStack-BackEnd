@@ -1,6 +1,7 @@
 package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,29 +22,36 @@ import java.util.Set;
 @Entity
 @Table(name = "tbl_Diet_Prescription")
 public class DietPrescription {
-    //all attributes in Diet Prescription table
+    //Auto generate id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //Auto to check if Diet Prescription expired or not
+    private LocalDate startDate;
+    private LocalDate endDate;
 
+    //check status of Diet Prescription, by defult true until meet the endDate
+    private boolean active;
+
+    //user can get more than one Diet Prescription for each chronicDisease
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    //user may has more than chronicDisease , depend on disease_id user start create Diet Prescription
+    @ManyToOne
+    @JoinColumn(name = "disease_id")
+    private ChronicDisease chronicDisease;
+
+    // all meal selected from user has to store in database in table named diet_prescription_meals
+    // diet_prescription_meals include diet_prescription_id, meal_id , disease_id
     @ManyToMany
     @JoinTable(name = "diet_prescription_meals",
             joinColumns = @JoinColumn(name = "diet_prescription_id"),
             inverseJoinColumns = @JoinColumn(name = "meal_id"))
     private Set<Meals> meals = new HashSet<>();
 
-    private String goals;
-
-    private LocalDate startDate;
-
-    private LocalDate endDate;
-
-    private boolean active;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 }
 
 

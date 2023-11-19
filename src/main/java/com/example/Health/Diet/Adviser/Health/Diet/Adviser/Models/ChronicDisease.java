@@ -38,4 +38,5 @@ public class ChronicDisease {
         return diseaseName;
     }
 
+    public Long getId() {return diseaseId;}
 }

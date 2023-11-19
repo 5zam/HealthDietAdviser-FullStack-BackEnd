@@ -51,11 +51,17 @@ public class Meals {
     private ChronicDisease chronicDisease;
 
     public List<ChronicDisease> getChronicDiseases() {
-        // Implement the logic to return the list of chronic diseases associated with the meal.
-        // You can fetch this information from the meal's attributes or database.
-        // Replace the following line with your actual logic.
-        return Collections.emptyList(); // Return an empty list as a placeholder.
+        return Collections.emptyList(); // Replace with your actual logic.
     }
+
+//    public Meals(Long mealId) {
+//        this.mealId = mealId;
+//    }
+    public Long getId() {
+        return mealId;
+    }
+
+
 
 //    public String getMealImagePath() {
 //        return mealImagePath;

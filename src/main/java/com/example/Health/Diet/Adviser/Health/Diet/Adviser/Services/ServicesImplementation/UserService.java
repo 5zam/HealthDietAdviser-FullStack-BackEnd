@@ -35,13 +35,13 @@ public class UserService implements UserInterface {
         userRepository.save(user); // Save the updated user information
     }
 
-    public boolean hasGoalForDietPrescription(User user, DietPrescription dietPrescription) {
-        // Implement the logic to check if the user has a goal set for the given diet prescription.
-        // You can iterate through the user's diet prescriptions and check if any of them have the same dietPrescription ID
-        // and already have a goal set.
-        return user.getDietPrescriptions().stream()
-                .anyMatch(dp -> dp.getId().equals(dietPrescription.getId()) && dp.getGoals() != null && !dp.getGoals().isEmpty());
-    }
+//    public boolean hasGoalForDietPrescription(User user, DietPrescription dietPrescription) {
+//        // Implement the logic to check if the user has a goal set for the given diet prescription.
+//        // You can iterate through the user's diet prescriptions and check if any of them have the same dietPrescription ID
+//        // and already have a goal set.
+//        return user.getDietPrescriptions().stream()
+//                .anyMatch(dp -> dp.getId().equals(dietPrescription.getId()) && dp.getGoals() != null && !dp.getGoals().isEmpty());
+//    }
 
 
 //    @Override
