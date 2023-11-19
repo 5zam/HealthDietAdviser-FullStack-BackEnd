@@ -16,39 +16,30 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
 @Service
 public class DietPrescriptionService implements DietPrescriptionInterface {
-//    @Autowired
-//    private final DietPrescriptionRepository dietPrescriptionRepository;
-//
-//    @Autowired
-//    private final UserRepository userRepository;
-//
-//    @Autowired
-//    private final ChronicDiseaseRepository chronicDiseaseRepository;
-//
-//    @Autowired
-//    private final MealRepository mealsRepository;
-//
-//    @Autowired
-//    public DietPrescriptionService(DietPrescriptionRepository dietPrescriptionRepository,
-//                                       UserRepository userRepository,
-//                                       ChronicDiseaseRepository chronicDiseaseRepository,
-//                                       MealRepository mealsRepository) {
-//        this.dietPrescriptionRepository = dietPrescriptionRepository;
-//        this.userRepository = userRepository;
-//        this.chronicDiseaseRepository = chronicDiseaseRepository;
-//        this.mealsRepository = mealsRepository;
-//    }
 
     private final DietPrescriptionRepository dietPrescriptionRepository;
+    private final UserRepository userRepository;
+    private final ChronicDiseaseRepository chronicDiseaseRepository;
+
+    private final MealRepository mealRepository;
 
     @Autowired
-    public DietPrescriptionService(DietPrescriptionRepository dietPrescriptionRepository) {
+    public DietPrescriptionService(
+            DietPrescriptionRepository dietPrescriptionRepository,
+            UserRepository userRepository,
+            ChronicDiseaseRepository chronicDiseaseRepository,
+            MealRepository mealRepository
+    ) {
         this.dietPrescriptionRepository = dietPrescriptionRepository;
+        this.userRepository = userRepository;
+        this.chronicDiseaseRepository = chronicDiseaseRepository;
+        this.mealRepository = mealRepository;
     }
 
     @Override
@@ -68,15 +59,45 @@ public class DietPrescriptionService implements DietPrescriptionInterface {
         dto.setDiseaseId(dietPrescription.getChronicDisease().getId());
         dto.setMealIds(dietPrescription.getMeals().stream()
                 .map(Meals::getId)
-                .collect(Collectors.toList())); // Populate mealIds
+                .collect(Collectors.toSet())); // Populate mealIds as Set<Long>
         return dto;
     }
 
 
 
 
+    @Override
+    public DietPrescriptionDTO addDietPrescriptionForUserAndDisease(Long userId, Long diseaseId, DietPrescriptionDTO dietPrescriptionDTO) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        ChronicDisease chronicDisease = chronicDiseaseRepository.findById(diseaseId).orElseThrow(() -> new EntityNotFoundException("Chronic Disease not found"));
 
+        DietPrescription dietPrescription = new DietPrescription();
+        dietPrescription.setStartDate(dietPrescriptionDTO.getStartDate());
+        dietPrescription.setEndDate(dietPrescriptionDTO.getEndDate());
+        dietPrescription.setActive(dietPrescriptionDTO.isActive());
+        dietPrescription.setUser(user);
+        dietPrescription.setChronicDisease(chronicDisease);
 
+        // Convert List<Long> mealIds to Set<Long>
+        Set<Long> mealIds = new HashSet<>(dietPrescriptionDTO.getMealIds());
+
+        // Save the diet prescription to the database
+        dietPrescription = dietPrescriptionRepository.save(dietPrescription);
+
+        if (!mealIds.isEmpty()) {
+            // Fetch the meals by their IDs
+            Set<Meals> selectedMeals = new HashSet<>(mealRepository.findAllById(mealIds));
+
+            // Associate the selected meals with the diet prescription
+            dietPrescription.setMeals(selectedMeals);
+
+            // Save the updated diet prescription with associated meals
+            dietPrescription = dietPrescriptionRepository.save(dietPrescription);
+        }
+
+        // Convert and return the saved diet prescription as DTO
+        return mapToDTO(dietPrescription);
+    }
 
 
 

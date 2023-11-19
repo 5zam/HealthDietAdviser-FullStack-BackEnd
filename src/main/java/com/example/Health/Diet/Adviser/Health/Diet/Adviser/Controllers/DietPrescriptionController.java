@@ -26,8 +26,20 @@ public class DietPrescriptionController {
     }
 
 
+    @PostMapping("/add/{userId}/{diseaseId}")
+    public ResponseEntity<DietPrescriptionDTO> addDietPrescriptionForUserAndDisease(
+            @PathVariable Long userId,
+            @PathVariable Long diseaseId,
+            @RequestBody DietPrescriptionDTO dietPrescriptionDTO
+    ) {
+        DietPrescriptionDTO addedDietPrescription = dietPrescriptionService.addDietPrescriptionForUserAndDisease(userId, diseaseId, dietPrescriptionDTO);
+        return ResponseEntity.ok(addedDietPrescription);
+    }
 
-        //update diet-prescriptions
+
+
+
+    //update diet-prescriptions
 
         //delete
 

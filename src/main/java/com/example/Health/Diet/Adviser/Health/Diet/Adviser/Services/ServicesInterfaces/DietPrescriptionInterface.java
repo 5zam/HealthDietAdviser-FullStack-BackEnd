@@ -4,8 +4,13 @@ import com.example.Health.Diet.Adviser.Health.Diet.Adviser.DTO.DietPrescriptionD
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.DietPrescription;
 
 import java.util.List;
+import java.util.Set;
 
 public interface DietPrescriptionInterface {
 
     List<DietPrescriptionDTO> getAllDietPrescriptionsWithoutNestedData();
+
+    DietPrescriptionDTO addDietPrescriptionForUserAndDisease(Long userId, Long diseaseId, DietPrescriptionDTO dietPrescriptionDTO);
+
+
 }

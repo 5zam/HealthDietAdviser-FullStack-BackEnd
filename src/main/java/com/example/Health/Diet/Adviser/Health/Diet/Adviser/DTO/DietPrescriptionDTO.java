@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 
 @Setter
@@ -18,7 +19,7 @@ public class DietPrescriptionDTO {
     private boolean active;
     private Long userId;
     private Long diseaseId;
-    private List<Long> mealIds;
+    private Set<Long> mealIds;
 
     // Constructor, getters, and setters
     public void setId(Long id) {
