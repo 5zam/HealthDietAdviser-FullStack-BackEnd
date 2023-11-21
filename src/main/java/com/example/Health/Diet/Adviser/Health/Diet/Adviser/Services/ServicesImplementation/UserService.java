@@ -27,22 +27,51 @@ import java.util.Optional;
 public class UserService implements UserInterface , UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     private RoleRepository roleRepository;
 
-    @Override
-    public void registerUser(User user) throws Exception {
-        // Check if the username is already taken
-        if (userRepository.findByUsername(user.getUsername()) != null) {
-            throw new Exception("Username is already taken. Please choose a different username.");
-        }
-
-        // Save the user if the username is unique
-        userRepository.save(user);
+    public User saveUser(User userSignupDTO) {
+        log.info("Saving a new user {} inside of the database", userSignupDTO.getName());
+        User user = new User(userSignupDTO.getName(), userSignupDTO.getEmail(), userSignupDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
+
+    public List<User> getUsers() {
+        log.info("Fetching all users");
+        return userRepository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            log.error("User not found in the database");
+            throw new UsernameNotFoundException("User not found in the database");
+        } else {
+            log.info("User is found in the database: {}", email);
+            Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            user.getRoles().forEach(role -> {
+                authorities.add(new SimpleGrantedAuthority(role.getName()));
+            });
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+        }
+    }
+
+//    @Override
+//    public void registerUser(User user) throws Exception {
+//        // Check if the username is already taken
+//        if (userRepository.findByUsername(user.getUsername()) != null) {
+//            throw new Exception("Username is already taken. Please choose a different username.");
+//        }
+//
+//        // Save the user if the username is unique
+//        userRepository.save(user);
+//    }
 
     @Override
     public List<User> getAllUsers() {
@@ -64,33 +93,11 @@ public class UserService implements UserInterface , UserDetailsService {
 
 
     //security
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            log.error("User not found in the database");
-            throw new UsernameNotFoundException("User not found in the database");
-        } else {
-            log.info("User is found in the database: {}", email);
-            Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-            user.getRoles().forEach(role -> {
-                authorities.add(new SimpleGrantedAuthority(role.getName()));
-            });
-            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
-        }
-    }
 
-    public User saveUser(User userSignupDTO) {
-        log.info("Saving a new user {} inside of the database", userSignupDTO.getName());
-        User user = new User(userSignupDTO.getName(), userSignupDTO.getEmail(), userSignupDTO.getPassword());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
-    }
-
-    public List<User> getUsers() {
-        log.info("Fetching all users");
-        return userRepository.findAll();
-    }
+//    public List<User> getUsers() {
+//        log.info("Fetching all users");
+//        return userRepository.findAll();
+//    }
 
 
 

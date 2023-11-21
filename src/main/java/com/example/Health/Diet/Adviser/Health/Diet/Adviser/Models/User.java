@@ -18,6 +18,10 @@ import java.util.*;
 @Table(name = "tbl_users")
 public class User {
     //user security
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotEmpty(message = "Provide a name.")
     private String name;
     @Pattern(regexp = "[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
@@ -39,23 +43,18 @@ public class User {
     }
 
 
-
-
-
-
-
     //user part
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
 
-    @Column(nullable = false)
-    private String username; // username should not be null and unique
-
-    private String gender;
-    private String weight;
-    private String height;
+//    @Column(nullable = false)
+//    private String username; // username should not be null and unique
+//
+//    private String gender;
+//    private String weight;
+//    private String height;
 
     @ManyToMany
     @JoinTable(

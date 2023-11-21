@@ -9,9 +9,9 @@ public interface UserInterface {
 
 
 
-    void registerUser(User user) throws Exception;
-    //void updateHealthInformation(User user);
-
+//    void registerUser(User user) throws Exception;
+//    //void updateHealthInformation(User user);
+//
     List<User> getAllUsers();
 
     User getUserById(Long userId);
@@ -21,5 +21,7 @@ public interface UserInterface {
 
     //security
     User saveUser(User userSignupDTO);
+
+    List<User> getUsers();
 
 }

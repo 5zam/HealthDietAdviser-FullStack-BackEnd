@@ -3,6 +3,7 @@ import com.example.Health.Diet.Adviser.Health.Diet.Adviser.DTO.UserVerifyDTO;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.User;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Repositories.UserRepository;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesImplementation.UserService;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,8 +34,8 @@ public class AuthController {
         String email = (String) authentication.getPrincipal();
         User userFromDb = userRepository.findByEmail(email);
         UserVerifyDTO userVerifyDTO = new UserVerifyDTO(userFromDb.getName());
-//        Gson gson = new Gson();
-//        String userDetails = gson.toJson(userVerifyDTO);
+        Gson gson = new Gson();
+        String userDetails = gson.toJson(userVerifyDTO);
         return userVerifyDTO;
     }
 }

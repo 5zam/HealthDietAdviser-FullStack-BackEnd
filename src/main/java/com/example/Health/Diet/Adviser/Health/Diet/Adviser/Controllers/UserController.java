@@ -25,11 +25,11 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody @Valid User user) throws Exception {
-        userService.registerUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
-    }
+//    @PostMapping("/register")
+//    public ResponseEntity<String> registerUser(@RequestBody @Valid User user) throws Exception {
+//        userService.registerUser(user);
+//        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
+//    }
 
 //    @PutMapping("/update-health")
 //    public ResponseEntity<String> updateHealthInformation(@RequestBody @Valid User user) {
