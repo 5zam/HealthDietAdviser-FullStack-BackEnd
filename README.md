@@ -9,7 +9,8 @@
 
 ![ClassDiagram (1)](https://github.com/5zam/HealthDietAdviser-FullStack-BackEnd/assets/146082269/e0d95b76-dcc1-48e1-8388-2b81c22fe766)
 
-## Features
+
+### 📜 Features
 
 - **Admin Panel**: Administrators can log in with their credentials and have the "admin" role. They can manage chronic diseases and associated meals.
 
@@ -36,6 +37,20 @@
 ➜ User: Users can log in with a username and password. Users can also sign up if they are new to the system. Users can add multiple diet prescriptions, and each diet prescription can contain up to three meals. Users can view and manage their diet prescriptions.
 
 ➜ Chronic Disease: Represents different chronic diseases that meals can be associated with.
+
+## Installation
+
+To set up the Health Diet Adviser application, follow these steps:
+
+1. Clone the repository: [HealthDietAdviser Application-Backend](https://github.com/5zam/HealthDietAdviser-FullStack-BackEnd.git)
+
+2. Install the necessary dependencies for both the frontend and backend components.
+
+3. Configure the application according to your environment and database settings.
+
+4. Run the backend server using Java Spring Boot.
+
+5. Run the frontend application using Angular.
 
 ➜ Meal: Represents meals that can be associated with chronic diseases.
 
