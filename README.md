@@ -8,6 +8,7 @@
 #### For a deeper dive into our application's structure:
 
 ![ClassDiagram (1)](https://github.com/5zam/HealthDietAdviser-FullStack-BackEnd/assets/146082269/e0d95b76-dcc1-48e1-8388-2b81c22fe766)
+![use case](https://github.com/5zam/HealthDietAdviser-FullStack-BackEnd/assets/146082269/8a51330a-3c72-4875-85eb-70baf854a663)
 
 
 ### 📜 Features
