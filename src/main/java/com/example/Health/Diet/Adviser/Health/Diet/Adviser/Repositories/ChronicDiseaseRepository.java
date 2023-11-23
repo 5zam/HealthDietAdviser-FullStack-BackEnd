@@ -4,8 +4,12 @@ import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.ChronicDisease
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface ChronicDiseaseRepository extends JpaRepository<ChronicDisease, Long> {
     ChronicDisease findByDiseaseName(String name);
+
+    List<ChronicDisease> findByDiseaseNameContainingIgnoreCase(String name);
 }

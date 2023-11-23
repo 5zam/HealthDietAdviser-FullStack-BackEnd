@@ -42,6 +42,19 @@ public class MealController {
         }
     }
 
+//    http://localhost:5005/api/meals/by-disease/25
+@GetMapping("/by-disease/{diseaseId}")
+public List<MealsDTO> getMealsByDiseaseId(@PathVariable Long diseaseId) {
+    // Your code to fetch meals by diseaseId
+    List<MealsDTO> mealDTOs = mealService.getMealsByDiseaseId(diseaseId);
+
+    // Log the retrieved data
+    System.out.println("Retrieved meals: " + mealDTOs);
+
+    return mealDTOs;
+}
+
+
 
 
     @GetMapping("/all")

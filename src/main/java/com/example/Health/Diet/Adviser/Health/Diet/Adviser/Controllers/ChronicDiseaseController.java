@@ -63,4 +63,14 @@ public class ChronicDiseaseController {
         }
     }
 
+
+
+    //search
+    @GetMapping("/search")
+    public ResponseEntity<List<ChronicDisease>> searchDiseaseByName(@RequestParam String name) {
+        List<ChronicDisease> matchingDiseases = chronicDiseaseService.searchDiseaseByName(name);
+        return ResponseEntity.ok(matchingDiseases);
+    }
+
+
 }

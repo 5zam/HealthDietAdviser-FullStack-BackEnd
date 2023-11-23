@@ -95,7 +95,7 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/add-chronic-diseases")
-    public ResponseEntity<String> addChronicDiseases(
+    public ResponseEntity<User> addChronicDiseases(
             @PathVariable Long userId,
             @RequestBody List<ChronicDisease> newChronicDiseases) {
 
@@ -109,8 +109,9 @@ public class UserController {
 
         userService.updateUser(existingUser);
 
-        return ResponseEntity.ok("Chronic diseases added successfully!");
+        return ResponseEntity.ok(existingUser);
     }
+
 
 
 

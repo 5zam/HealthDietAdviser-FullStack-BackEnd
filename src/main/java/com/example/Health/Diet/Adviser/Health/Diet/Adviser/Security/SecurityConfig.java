@@ -46,6 +46,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/api/login/**").permitAll();
         http.authorizeRequests().antMatchers("/api/signup").permitAll();
+
+        http.authorizeRequests().antMatchers("/api/chronicdiseases/add").permitAll(); // edit permissions
+        http.authorizeRequests().antMatchers("/api/chronicdiseases/all").permitAll();
+        http.authorizeRequests().antMatchers("/api/chronicdiseases/getByName/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/chronicdiseases/delete/**").permitAll();
+
+        http.authorizeRequests().antMatchers("/api/meals/add-to-chronic-disease/**").permitAll();
+        ///api/users
+        http.authorizeRequests().antMatchers("/api/users/{userId}/update-chronic-diseases").permitAll();
+        http.authorizeRequests().antMatchers("/api/meals").permitAll();
+        http.authorizeRequests().antMatchers("/api/meals/by-disease/{diseaseId}").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

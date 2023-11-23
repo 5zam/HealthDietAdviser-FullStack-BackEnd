@@ -6,6 +6,7 @@ import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.Meals;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Repositories.ChronicDiseaseRepository;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Repositories.MealRepository;
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesInterfaces.MealInterface;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -27,18 +28,14 @@ public class MealService implements MealInterface {
     private final MealRepository mealRepository;
     private final ChronicDiseaseRepository chronicDiseaseRepository;
 
+    private final ModelMapper modelMapper;
+
     @Autowired
-    public MealService(MealRepository mealRepository, ChronicDiseaseRepository chronicDiseaseRepository) {
+    public MealService(MealRepository mealRepository, ChronicDiseaseRepository chronicDiseaseRepository,  ModelMapper modelMapper) {
         this.mealRepository = mealRepository;
         this.chronicDiseaseRepository = chronicDiseaseRepository;
+        this.modelMapper = modelMapper;
     }
-
-//    public void addMealToChronicDisease(Meals meal, Long chronicDiseaseId) {
-//        ChronicDisease chronicDisease = chronicDiseaseRepository.findById(chronicDiseaseId)
-//                .orElseThrow(() -> new EntityNotFoundException("Chronic disease not found with ID: " + chronicDiseaseId));
-//        meal.setChronicDisease(chronicDisease);
-//        mealRepository.save(meal);
-//    }
 
     @Override
     public void addMealToChronicDisease(Meals meal, Long chronicDiseaseId) {
@@ -149,6 +146,21 @@ public class MealService implements MealInterface {
         }
 
         mealRepository.delete(meal);
+    }
+
+    @Override
+    public List<MealsDTO> getMealsByDiseaseId(Long diseaseId) {
+        List<Meals> meals = mealRepository.findMealsByChronicDiseaseId(diseaseId);
+        List<MealsDTO> mealDTOs = convertToDTOs(meals);
+        return mealDTOs;
+    }
+
+
+
+    private List<MealsDTO> convertToDTOs(List<Meals> meals) {
+        return meals.stream()
+                .map(meal -> modelMapper.map(meal, MealsDTO.class))
+                .collect(Collectors.toList());
     }
 
 

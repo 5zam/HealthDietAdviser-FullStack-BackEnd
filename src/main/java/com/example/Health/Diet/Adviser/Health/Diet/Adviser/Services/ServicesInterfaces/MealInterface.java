@@ -20,4 +20,8 @@ public interface MealInterface {
     void updateMealImage(Long mealId, String mealImagePath);
 
     void deleteMealByName(String mealName);
+
+    //List<MealsDTO> getMealsByChronicDiseaseId(Long diseaseId);
+
+    List<MealsDTO> getMealsByDiseaseId(Long diseaseId);
 }

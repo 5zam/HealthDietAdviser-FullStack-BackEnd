@@ -1,6 +1,6 @@
 package com.example.Health.Diet.Adviser.Health.Diet.Adviser.Services.ServicesInterfaces;
 
-import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.DietPrescription;
+
 import com.example.Health.Diet.Adviser.Health.Diet.Adviser.Models.User;
 
 import java.util.List;

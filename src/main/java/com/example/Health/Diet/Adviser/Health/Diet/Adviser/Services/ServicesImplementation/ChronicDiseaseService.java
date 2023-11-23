@@ -35,4 +35,9 @@ public class ChronicDiseaseService implements ChronicDiseaseInterface {
     public ChronicDisease getChronicDiseaseByName(String name) {
         return chronicDiseaseRepository.findByDiseaseName(name);
     }
+
+    @Override
+    public List<ChronicDisease> searchDiseaseByName(String name) {
+        return chronicDiseaseRepository.findByDiseaseNameContainingIgnoreCase(name);
+    }
 }

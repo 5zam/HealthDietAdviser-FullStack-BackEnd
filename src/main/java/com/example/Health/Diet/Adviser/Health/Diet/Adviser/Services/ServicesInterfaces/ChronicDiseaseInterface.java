@@ -12,4 +12,6 @@ public interface ChronicDiseaseInterface {
     void deleteChronicDiseaseById(Long id);
 
     ChronicDisease getChronicDiseaseByName(String name);
+
+    List<ChronicDisease> searchDiseaseByName(String name);
 }

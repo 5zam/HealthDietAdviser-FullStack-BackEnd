@@ -64,8 +64,8 @@ public class User {
     )
     private Set<ChronicDisease> chronicDiseases;
 
-    @OneToMany(mappedBy = "user")
-    private List<DietPrescription> dietPrescriptions;
+//    @OneToMany(mappedBy = "user")
+//    private List<DietPrescription> dietPrescriptions;
 
 
 
